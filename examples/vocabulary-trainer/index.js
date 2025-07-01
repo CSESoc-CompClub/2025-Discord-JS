@@ -2,7 +2,7 @@ import { Client, GatewayIntentBits, Collection } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import config from './config.json' assert { type: "json" };
+import config from './config.json' with { type: "json" };
 const { token, guildId } = config;
 
 // Create a new bot client

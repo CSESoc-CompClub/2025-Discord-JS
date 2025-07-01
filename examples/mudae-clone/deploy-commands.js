@@ -1,7 +1,7 @@
 import { REST, Routes } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
-import config from './config.json' assert { type: "json" };
+import config from './config.json' with { type: "json" };
 const { clientId, guildId, token } = config;
 import { fileURLToPath } from 'url';
 

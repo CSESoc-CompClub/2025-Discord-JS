@@ -1,6 +1,6 @@
 import { Client, Collection, Events, GatewayIntentBits, ChannelType } from 'discord.js';
 import { joinVoiceChannel, VoiceConnectionStatus, createAudioPlayer, createAudioResource, AudioPlayerStatus } from '@discordjs/voice';
-import config from './config.json' assert { type: "json" };
+import config from './config.json' with { type: "json" };
 const { token } = config;
 import fs from 'node:fs';
 import path from 'node:path';

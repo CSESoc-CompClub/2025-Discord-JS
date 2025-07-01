@@ -3,7 +3,7 @@ import schedule from "node-schedule";
 
 import { setRules, obtainRules } from './utils/rules.js';
 import { spawnMonster, checkHealth } from './utils/monsters.js';
-import config from '../config.json' assert { type: "json" };
+import config from '../config.json' with { type: "json" };
 const { guildId } = config;
 
 const name = Events.ClientReady;
