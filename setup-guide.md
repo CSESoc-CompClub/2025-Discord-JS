@@ -95,7 +95,7 @@ TODO: give them a runnable script that just installs node.js (version - node v20
 
 (note: if you're reading this as an instuctor then pls install all of these yourself hehe)
 
-> Let's take a look at the files we have in our project so far:
+Let's take a look at the files we have in our project so far:
 
 ## `index.js`
 
@@ -138,7 +138,7 @@ Now that we've linked our bot to our code using its token, we can try running it
 
 Everytime we want to run our bot, we have to start it by typing `node .` in our terminal. It's important to remember that whenever we add a new feature, we have to shut down the bot (by pressing `CTRL + C`) and start it again.
 
-Press `CTRL + ~` on your keyboard to open the terminal, and run `node .` in the `2024-compclub-spring` directory to start your bot! To verify if it started, you can go into your server and look at the *member list* on the right side - if your bot powered on successfully, it should display under the 'online' category. (It should also send you a message in the terminal of whatever coding app you're using).
+Press `CTRL + ~` on your keyboard to open the terminal, and type `node .` to start your bot! To verify if it started, you can go into your server and look at the *member list* on the right side - if your bot powered on successfully, it should display under the 'online' category. (It should also send you a message in the terminal of whatever coding app you're using).
 
-Right now, our bot barely has any functionality! In fact, the only thing it can do is run a command called `ping`. To try it out, go into the `#general` chat of your server and type `/ping` in the message bar. Let's give it some functionality!
+Right now, our bot barely has any functionality! In fact, the only thing it can do is run a command called `ping`. To try it out, go into the `#general` chat of your server and type `/ping` in the message bar. Let's give it some more functionality!
 
