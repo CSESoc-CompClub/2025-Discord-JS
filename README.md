@@ -1,1 +1,3 @@
-# 2025-DiscordJS
+# These are not the docs you're looking for...
+
+Follow the [tutorial instructions](https://csesoc-compclub.github.io/2025-Winter-Handbook/)!
