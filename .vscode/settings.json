@@ -1,0 +1,7 @@
+{
+    "code-runner.executorMapByGlob": {
+        "*": "cd $workspaceRoot; npm start"
+    },
+    "code-runner.runInTerminal": false,
+    "code-runner.saveAllFilesBeforeRun": true // really only setting it for the students' sake
+}
