@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --no-colours index.js"
+    "start": "nodemon --no-colours -x 'node deploy-commands && node index.js'"
   },
   "keywords": [],
   "author": "",

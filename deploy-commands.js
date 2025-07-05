@@ -4,6 +4,7 @@ import path from 'node:path';
 import config from './config.json' with { type: "json" };
 const { clientId, guildId, token } = config;
 import { fileURLToPath } from 'url';
+import util from 'node:util';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -31,20 +32,35 @@ for (const folder of commandFolders) {
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(token);
 
+const lastDeployCommands = path.join(dirname, ".last-deploy-commands");
+async function shouldRedeployCommands () {
+    try {
+        const last = await fs.promises.readFile(lastDeployCommands, "utf-8");
+        const current = util.inspect(commands) + JSON.stringify(config.token);
+        return last !== current;
+    } catch {
+        // If we failed to open ".last-deploy-commands", then we have never deployed before.
+        return true;
+    }
+}
+
 // and deploy your commands!
 (async () => {
-    try {
-        console.log('Started refreshing ${commands.length} application (/) commands.');
+    if (await shouldRedeployCommands()) {
+        try {
+            console.log('Started refreshing ${commands.length} application (/) commands.');
 
-        // The put method is used to fully refresh all commands in the guild with the current set
-        const data = await rest.put(
-            Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
-        );
+            // The put method is used to fully refresh all commands in the guild with the current set
+            const data = await rest.put(
+                Routes.applicationGuildCommands(clientId, guildId),
+                { body: commands },
+            );
 
-        console.log('Successfully reloaded ${data.length} application (/) commands.');
-    } catch (error) {
-        // And of course, make sure you catch and log any errors!
-        console.error(error);
+            console.log('Successfully reloaded ${data.length} application (/) commands.');
+            await fs.promises.writeFile(lastDeployCommands, util.inspect(commands) + JSON.stringify(config.token));
+        } catch (error) {
+            // And of course, make sure you catch and log any errors!
+            console.error(error);
+        }
     }
 })();
