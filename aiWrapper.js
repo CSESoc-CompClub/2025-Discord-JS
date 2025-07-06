@@ -2,18 +2,17 @@ const { OpenAI } = require("openai");
 const fetch = require('node-fetch');  
 require('dotenv').config();
 
-let conversationHistory = [];
-
 const openai = new OpenAI({
     apiKey: process.env.AI_API_KEY,
   });
   
 async function getAIResponse(prompt) {
-    conversationHistory.push({ role: 'user', content: prompt });
     try {
         const completion = await openai.chat.completions.create({
-            model: 'gpt-4.1-2025-04-14',
-            messages: conversationHistory,
+            model: 'gpt-4o',
+            messages: [
+                { role: 'user', content: prompt }
+            ],
             max_tokens: 300,
             temperature: 0.9,
         });
