@@ -1,27 +1,34 @@
-const { OpenAI } = require("openai");
 const fetch = require('node-fetch');  
 require('dotenv').config();
 
-const openai = new OpenAI({
-    apiKey: process.env.AI_API_KEY,
-  });
-  
-async function getAIResponse(prompt) {
-    try {
-        const completion = await openai.chat.completions.create({
-            model: 'gpt-4o',
-            messages: [
-                { role: 'user', content: prompt }
-            ],
-            max_tokens: 300,
-            temperature: 0.9,
-        });
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.AI_API_KEY}`;
 
-        return completion.choices[0].message.content.trim();
-    } catch (error) {
-        console.error('Error with the AI request:', error);
-        return 'Sorry, I am brewing coffee. Will be back in a sec. Meow!';
-    }
-}
+  const body = {
+      contents: [
+          {
+              parts: [{ text: prompt }]
+          }
+      ]
+  };
+
+  try {
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body)
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const message = await response.json();
+      return message.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? "Error";
+  } catch (error) {
+      console.error('Error with Gemini API request:', error);
+      return 'Error';
+  }
 
 module.exports = { getAIResponse };
