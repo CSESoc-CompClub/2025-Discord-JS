@@ -15,11 +15,9 @@ client.once(Events.ClientReady, readyClient => {
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
-    if (!message.content.startsWith("coffee cat")) return;
+    if (!message.content.startsWith("bot")) return;
 
     const lowerCaseMessage = message.content.toLowerCase();
-    const catMemeUrl = await getCatMeme();
-
     const prompt = `The user said: ${message.content}`;
     const aiResponse = await getAIResponse(prompt);
 
