@@ -3,6 +3,7 @@ import config from './config.json' with { type: "json" };
 const { token } = config;
 import fs from 'node:fs';
 import path from 'node:path';
+import 'dotenv/config'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
