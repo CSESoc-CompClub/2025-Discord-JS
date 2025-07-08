@@ -1,5 +1,7 @@
 import { SlashCommandBuilder, SlashCommandStringOption } from 'discord.js';
 import OpenAI from "openai";
+
+import config from '../../config.json' with { type: "json" };
 const { aiApiKey } = config;
 const data = new SlashCommandBuilder()
   .setName('ask')
@@ -12,6 +14,7 @@ const data = new SlashCommandBuilder()
   .setDescription('Ask the AI');
 
 const client = new OpenAI({ apiKey: aiApiKey });
+
 
 
 async function getAiResponse(prompt) {
