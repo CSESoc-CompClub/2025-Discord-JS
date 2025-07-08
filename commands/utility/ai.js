@@ -1,0 +1,38 @@
+import { SlashCommandBuilder, SlashCommandStringOption } from 'discord.js';
+import OpenAI from "openai";
+const { aiApiKey } = config;
+const data = new SlashCommandBuilder()
+  .setName('ask')
+  .addStringOption((option) =>
+    option
+      .setName('question')
+      .setDescription('The question to ask the AI')
+      .setRequired(true)
+  )
+  .setDescription('Ask the AI');
+
+const client = new OpenAI({ apiKey: aiApiKey });
+
+
+async function getAiResponse(prompt) {
+    try {
+        const response = await client.responses.create({
+            model: "gpt-4.1",
+            input: `Respond to the user. The user said: ${prompt}`,
+        });
+        return response.output_text;
+    } catch (error) {
+        console.error('Error with the AI request:', error);
+        return 'AI is tired try again later.';
+    }
+}
+
+async function execute(interaction) {
+    const prompt = interaction.options.getString('question');
+    const AIResponse = await getAiResponse(prompt);
+    
+    await interaction.reply(AIResponse);
+}
+
+
+export { data, execute };
