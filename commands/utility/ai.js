@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, SlashCommandStringOption } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 import OpenAI from "openai";
 
 import config from '../../config.json' with { type: "json" };
@@ -21,7 +21,7 @@ async function getAiResponse(prompt) {
     try {
         const response = await client.responses.create({
             model: "gpt-4.1",
-            input: `Respond to the user. The user said: ${prompt}`,
+            input: `Respond to the user. Give a response under 2000 characters. The user said: ${prompt}`,
         });
         return response.output_text;
     } catch (error) {
@@ -33,8 +33,10 @@ async function getAiResponse(prompt) {
 async function execute(interaction) {
     const prompt = interaction.options.getString('question');
     const AIResponse = await getAiResponse(prompt);
-    
-    await interaction.reply(AIResponse);
+    console.log(AIResponse);
+    console.log("CUT -------")
+    console.log(AIResponse.slice(0, 2000))
+    await interaction.reply(AIResponse.slice(0, 1999));
 }
 
 
