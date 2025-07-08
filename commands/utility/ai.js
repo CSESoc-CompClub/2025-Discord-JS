@@ -20,7 +20,7 @@ const client = new OpenAI({ apiKey: aiApiKey });
 async function getAiResponse(prompt) {
     try {
         const response = await client.responses.create({
-            model: "gpt-4.1",
+            model: "gpt-3.5-turbo",
             input: `Respond to the user. Give a response under 2000 characters. The user said: ${prompt}`,
         });
         return response.output_text;
@@ -33,10 +33,8 @@ async function getAiResponse(prompt) {
 async function execute(interaction) {
     const prompt = interaction.options.getString('question');
     const AIResponse = await getAiResponse(prompt);
-    console.log(AIResponse);
-    console.log("CUT -------")
-    console.log(AIResponse.slice(0, 2000))
-    await interaction.reply(AIResponse.slice(0, 1999));
+
+    await interaction.reply(AIResponse.slice(0, 2000));
 }
 
 
