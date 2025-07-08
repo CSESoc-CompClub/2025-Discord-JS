@@ -1,8 +1,9 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import config from './config.json' with { type: "json" };
+import config from './config.json' assert { type: "json" };
 const { token } = config;
 import fs from 'node:fs';
 import path from 'node:path';
+import { assert } from 'node:console';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
